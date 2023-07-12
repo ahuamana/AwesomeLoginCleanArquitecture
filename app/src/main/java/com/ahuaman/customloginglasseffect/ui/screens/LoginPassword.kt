@@ -1,6 +1,5 @@
 package com.ahuaman.customloginglasseffect.ui.screens
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,15 +51,18 @@ import androidx.compose.ui.unit.sp
 import com.ahuaman.customloginglasseffect.R
 import com.ahuaman.customloginglasseffect.ui.theme.CustomLoginGlassEffectTheme
 import com.ahuaman.customloginglasseffect.ui.theme.GreenLight
-import com.ahuaman.customloginglasseffect.ui.theme.HoneyDew
-import dev.shreyaspatil.capturable.Capturable
-import dev.shreyaspatil.capturable.controller.rememberCaptureController
 
 
 @Composable
-fun LoginPasswordScreen() {
+fun LoginPasswordScreen(
+    onLogin: () -> Unit,
+    onBack: () -> Unit,
+    onForgetPassword: () -> Unit,
+    name: MutableState<String>,
+    email: MutableState<String>,
+) {
 
-    var email  by rememberSaveable { mutableStateOf("") }
+    val password = rememberSaveable { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -142,13 +145,13 @@ fun LoginPasswordScreen() {
                             verticalArrangement = Arrangement.SpaceEvenly
                         ) {
                             Text(
-                                text = "Jane Dow",
+                                text = name.value,
                                 color = Color.White,
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold)
                             Text(
                                 modifier = Modifier.fillMaxHeight(),
-                                text = "asd@gmail.com",
+                                text = email.value,
                                 color = Color.White,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Normal)
@@ -170,8 +173,8 @@ fun LoginPasswordScreen() {
                             .fillMaxWidth()
                             .padding(0.dp),
                         shape = RoundedCornerShape(8.dp),
-                        value = email,
-                        onValueChange = { email = it },
+                        value = password.value,
+                        onValueChange = { password.value = it },
                         label = { Text(text = "Password") },
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -216,6 +219,16 @@ fun LoginPasswordScreen() {
 @Composable
 fun LoginPasswordScreenPrev() {
     CustomLoginGlassEffectTheme() {
-        LoginPasswordScreen()
+
+        val name = rememberSaveable { mutableStateOf("Ahuaman") }
+        val email = rememberSaveable { mutableStateOf("asg@gmail.com") }
+
+        LoginPasswordScreen(
+            onLogin = {},
+            onBack = {},
+            onForgetPassword = {},
+            name = name,
+            email = email
+        )
     }
 }
