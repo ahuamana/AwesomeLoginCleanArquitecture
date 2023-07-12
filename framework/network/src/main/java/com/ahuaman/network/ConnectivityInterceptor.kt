@@ -1,4 +1,4 @@
-
+package com.ahuaman.network
 import com.ahuaman.domain.NoConnectivityException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Interceptor

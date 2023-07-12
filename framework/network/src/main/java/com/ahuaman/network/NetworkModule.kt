@@ -1,5 +1,6 @@
+package com.ahuaman.network
 
-
+import com.ahuaman.network.ConnectivityInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
