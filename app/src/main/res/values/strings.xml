@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CustomLoginGlassEffect</string>
+    <string name="back">Back</string>
+    <string name="background">background</string>
+    <string name="facebook">facebook logo</string>
+    <string name="google">icon google\n</string>
+    <string name="apple">icon apple</string>
+</resources>
