@@ -1,6 +1,6 @@
 package com.ahuaman.data.remote
 
-import BaseDataSource
+import com.ahuaman.network.BaseDataSource
 import com.ahuaman.data.service.ReqresService
 import com.ahuaman.domain.LoginForm
 import com.ahuaman.domain.LoginResponse

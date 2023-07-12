@@ -1,6 +1,5 @@
 package com.ahuaman.customloginglasseffect.ui.screens
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +20,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -29,14 +27,10 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -50,12 +44,13 @@ import com.ahuaman.customloginglasseffect.R
 import com.ahuaman.customloginglasseffect.ui.theme.CustomLoginGlassEffectTheme
 import com.ahuaman.customloginglasseffect.ui.theme.GreenLight
 import com.ahuaman.customloginglasseffect.ui.theme.HoneyDew
-import dev.shreyaspatil.capturable.Capturable
-import dev.shreyaspatil.capturable.controller.rememberCaptureController
 
 
 @Composable
-fun LoginScreen() {
+fun LoginEmailScreen(
+    onLoginUser: () -> Unit,
+    onRegisterUser: () -> Unit
+) {
 
     var email  by rememberSaveable { mutableStateOf("") }
 
@@ -304,6 +299,9 @@ fun LoginScreen() {
 @Composable
 fun LoginScreenPrev() {
     CustomLoginGlassEffectTheme() {
-        LoginScreen()
+        LoginEmailScreen(
+            onLoginUser = {},
+            onRegisterUser = {}
+        )
     }
 }

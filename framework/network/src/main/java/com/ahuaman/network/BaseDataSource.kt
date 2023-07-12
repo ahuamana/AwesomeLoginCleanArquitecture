@@ -1,4 +1,4 @@
-
+package com.ahuaman.network
 
 import android.util.Log
 import com.ahuaman.domain.GeneralErrorResponse
@@ -14,7 +14,7 @@ abstract class BaseDataSource {
         try {
             Timber.e("remoteDataSource")
             if(forceError){
-                throw Exception("force error for testing purpose only -- BaseDataSource.kt")
+                throw Exception("force error for testing purpose only -- com.ahuaman.network.BaseDataSource.kt")
             }
             val response = call()
             if (response.isSuccessful) {
@@ -24,7 +24,7 @@ abstract class BaseDataSource {
 
             if(response.code() in 400..499){
                 val errorResponse = Gson().fromJson(response.errorBody()?.string()?:"", GeneralErrorResponse::class.java)
-                Log.e("BaseDataSource","Error 400 -- ${errorResponse.error}")
+                Log.e("com.ahuaman.network.BaseDataSource","Error 400 -- ${errorResponse.error}")
                 throw InvalidExceptionGeneral(errorResponse.error?:"Error 400")
             }
             throw Exception(" not e ${response.code()} ${response.body()}")

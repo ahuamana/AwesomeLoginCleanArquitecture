@@ -58,8 +58,8 @@ fun LoginPasswordScreen(
     onLogin: () -> Unit,
     onBack: () -> Unit,
     onForgetPassword: () -> Unit,
-    name: MutableState<String>,
-    email: MutableState<String>,
+    name: String,
+    email: String,
 ) {
 
     val password = rememberSaveable { mutableStateOf("") }
@@ -145,13 +145,13 @@ fun LoginPasswordScreen(
                             verticalArrangement = Arrangement.SpaceEvenly
                         ) {
                             Text(
-                                text = name.value,
+                                text = name,
                                 color = Color.White,
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold)
                             Text(
                                 modifier = Modifier.fillMaxHeight(),
-                                text = email.value,
+                                text = email,
                                 color = Color.White,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Normal)
@@ -219,16 +219,12 @@ fun LoginPasswordScreen(
 @Composable
 fun LoginPasswordScreenPrev() {
     CustomLoginGlassEffectTheme() {
-
-        val name = rememberSaveable { mutableStateOf("Ahuaman") }
-        val email = rememberSaveable { mutableStateOf("asd@gmail.com") }
-
         LoginPasswordScreen(
             onLogin = {},
             onBack = {},
             onForgetPassword = {},
-            name = name,
-            email = email
+            name = "Ahuaman",
+            email = "asd@gmail.com"
         )
     }
 }

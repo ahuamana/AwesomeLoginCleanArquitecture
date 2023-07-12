@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -27,17 +29,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.3.2'
+        kotlinCompilerExtensionVersion '1.4.8'
     }
     packagingOptions {
         resources {
@@ -69,5 +71,54 @@ dependencies {
     implementation "androidx.compose.material3:material3-window-size-class:1.1.0"
 
     implementation 'com.github.jakhongirmadaminov:glassmorphic-composables:0.0.4'
+
+    //compose
+    //Navigation compose
+    def nav_version = "2.6.0"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    //viewmodel compose
+    def lifecycle_version = "2.6.1"
+    def arch_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
+
+    def hilt_version = "2.46.1"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    //navigation hilt compose
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+
+    //lifecycle-viewmodel compose
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+
+    //coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //Local unit tests
+    //testImplementation "androidx.test.core:core:1.4.0"
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1"
+    testImplementation "com.google.truth:truth:1.1.3"
+    testImplementation "com.squareup.okhttp3:mockwebserver:4.11.0"
+    testImplementation "io.mockk:mockk:1.12.0"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:1.4.3"
+
+
+    //instrumentation test
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    androidTestImplementation "junit:junit:4.13.2"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1"
+    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
+    androidTestImplementation "com.google.truth:truth:1.1.3"
+    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.5"
+    androidTestImplementation "androidx.test:core-ktx:1.5.0"
+    androidTestImplementation "io.mockk:mockk-android:1.12.0"
+    androidTestImplementation "androidx.test:runner:1.4.0"
+
 
 }

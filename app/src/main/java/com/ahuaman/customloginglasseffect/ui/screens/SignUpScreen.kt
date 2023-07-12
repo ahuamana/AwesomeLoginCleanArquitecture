@@ -50,9 +50,8 @@ import com.ahuaman.customloginglasseffect.ui.theme.GreenLight
 @Composable
 fun SignUpScreen(
     onClickAgreeAndContinue: () -> Unit,
-    emailReceived: MutableState<String>,
+    emailReceived: String,
 ) {
-
     val name = rememberSaveable { mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("") }
 
@@ -141,7 +140,7 @@ fun SignUpScreen(
                         )
                         Spacer(modifier = Modifier.height(5.dp))
                         Text(
-                            text = emailReceived.value,
+                            text = emailReceived,
                             color = Color.White,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
@@ -229,10 +228,8 @@ fun SignUpScreen(
 fun SignUpScreenPrev() {
     CustomLoginGlassEffectTheme {
 
-        val emailReceived = remember { mutableStateOf("demo@gmail.com") }
-
         SignUpScreen(
-            emailReceived = emailReceived,
+            emailReceived = "asd@gmail.com",
             onClickAgreeAndContinue = {}
         )
     }
