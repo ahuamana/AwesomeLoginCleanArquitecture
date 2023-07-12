@@ -221,7 +221,7 @@ fun LoginPasswordScreenPrev() {
     CustomLoginGlassEffectTheme() {
 
         val name = rememberSaveable { mutableStateOf("Ahuaman") }
-        val email = rememberSaveable { mutableStateOf("asg@gmail.com") }
+        val email = rememberSaveable { mutableStateOf("asd@gmail.com") }
 
         LoginPasswordScreen(
             onLogin = {},
