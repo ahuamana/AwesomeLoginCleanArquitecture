@@ -2,6 +2,7 @@ package com.ahuaman.customloginglasseffect.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,21 +49,28 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import com.ahuaman.customloginglasseffect.R
+import com.ahuaman.customloginglasseffect.ui.composables.PasswordTextField
 import com.ahuaman.customloginglasseffect.ui.theme.CustomLoginGlassEffectTheme
 import com.ahuaman.customloginglasseffect.ui.theme.GreenLight
+import timber.log.Timber
 
 
 @Composable
 fun LoginPasswordScreen(
-    onLogin: () -> Unit,
+    onLogin: (String) -> Unit,
     onBack: () -> Unit,
     onForgetPassword: () -> Unit,
     name: String,
     email: String,
+    image: String
 ) {
 
-    val password = rememberSaveable { mutableStateOf("") }
+    val painter = rememberAsyncImagePainter(model = image)
+
+    var password by rememberSaveable { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -87,7 +95,13 @@ fun LoginPasswordScreen(
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(top = 20.dp, start = 20.dp, end = 20.dp)) {
-            Image(painter = painterResource(id = R.drawable.ic_arrow_back_ios), contentDescription = stringResource(R.string.back))
+            Image(
+                painter = painterResource(id = R.drawable.ic_arrow_back_ios),
+                contentDescription = stringResource(R.string.back),
+                modifier = Modifier.clickable {
+                    onBack()
+                }
+            )
         }
 
         //Container for the login
@@ -137,7 +151,7 @@ fun LoginPasswordScreen(
                                 .width(70.dp)
                                 .clip(RoundedCornerShape(35.dp)),
                             contentScale = ContentScale.Crop,
-                            painter = painterResource(id = R.drawable.bg_login),
+                            painter = painter,
                             contentDescription = null)
 
                         Column(
@@ -161,22 +175,19 @@ fun LoginPasswordScreen(
                     Spacer(modifier = Modifier.height(20.dp))
 
                     //Email
-                    TextField(
-                        textStyle = textFieldTextStyle,
-                        colors = TextFieldDefaults.colors(
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent,
-                            disabledIndicatorColor = Color.Transparent,
-                            errorIndicatorColor = Color.Transparent,
-                        ),
+                    PasswordTextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(0.dp),
-                        shape = RoundedCornerShape(8.dp),
-                        value = password.value,
-                        onValueChange = { password.value = it },
-                        label = { Text(text = "Password") },
+                        text = password,
+                        onTextChanged = {
+                            password = it
+                        },
+                        labelText = "Password",
+                        hasError = false,
+                        placeholderText = "Enter your password",
                     )
+
                     Spacer(modifier = Modifier.height(10.dp))
                     //Button Continue
                     Button(
@@ -188,7 +199,9 @@ fun LoginPasswordScreen(
                             .fillMaxWidth()
                             .height(50.dp),
                         shape = RoundedCornerShape(6.dp),
-                        onClick = { /*TODO*/ }) {
+                        onClick = { onLogin(
+                            password
+                        ) }) {
                         Text(
                             text = "Continue",
                             fontStyle = MaterialTheme.typography.bodyLarge.fontStyle,
@@ -221,10 +234,13 @@ fun LoginPasswordScreenPrev() {
     CustomLoginGlassEffectTheme() {
         LoginPasswordScreen(
             onLogin = {},
-            onBack = {},
+            onBack = {
+                     Timber.e("onBack")
+            },
             onForgetPassword = {},
             name = "Ahuaman",
-            email = "asd@gmail.com"
+            email = "asd@gmail.com",
+            image = "https://cdn.shopify.com/s/files/1/0070/7032/files/editing-image-sizes.png?format=webp&v=1581621967&width=1024"
         )
     }
 }

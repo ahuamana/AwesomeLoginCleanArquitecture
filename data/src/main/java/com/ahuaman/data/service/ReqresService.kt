@@ -7,14 +7,18 @@ import com.ahuaman.domain.RegisterResponse
 import com.ahuaman.domain.UserResponse
 import com.ahuaman.domain.UsersListResponse
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ReqresService {
 
     @POST("login")
-    suspend fun login(loginForm: LoginForm): Response<LoginResponse>
+    suspend fun login(
+        @Body loginForm: LoginForm
+    ): Response<LoginResponse>
 
     @GET("users")
     suspend fun getUsers(
@@ -24,12 +28,14 @@ interface ReqresService {
 
     @GET("users/{id}")
     suspend fun getUser(
-        @Query("id") id: Int
+        @Path("id") id: Int
     ): Response<UserResponse>
 
     //https://reqres.in/api/register
     @POST("register")
-    suspend fun register(registerForm: RegisterForm): Response<RegisterResponse>
+    suspend fun register(
+        @Body registerForm: RegisterForm
+    ): Response<RegisterResponse>
 
 
 

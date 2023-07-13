@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -44,12 +45,14 @@ import com.ahuaman.customloginglasseffect.R
 import com.ahuaman.customloginglasseffect.ui.theme.CustomLoginGlassEffectTheme
 import com.ahuaman.customloginglasseffect.ui.theme.GreenLight
 import com.ahuaman.customloginglasseffect.ui.theme.HoneyDew
+import com.ahuaman.customloginglasseffect.ui.viewmodels.LoginEmailViewModel
+import timber.log.Timber
 
 
 @Composable
 fun LoginEmailScreen(
-    onLoginUser: () -> Unit,
-    onRegisterUser: () -> Unit
+    onClickContinue: (String) -> Unit,
+    onRegisterUser: () -> Unit,
 ) {
 
     var email  by rememberSaveable { mutableStateOf("") }
@@ -65,7 +68,6 @@ fun LoginEmailScreen(
             painter = painterResource(id = R.drawable.bg_login),
             contentDescription = stringResource(R.string.background),
             contentScale = ContentScale.Crop
-
         )
 
         //Surface black
@@ -77,7 +79,6 @@ fun LoginEmailScreen(
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(top = 20.dp, start = 20.dp, end = 20.dp)) {
-            Image(painter = painterResource(id = R.drawable.ic_arrow_back_ios), contentDescription = stringResource(R.string.back))
         }
 
         //Container for the login
@@ -123,7 +124,8 @@ fun LoginEmailScreen(
                             errorIndicatorColor = Color.Transparent,
                         ),
                         modifier = Modifier
-                            .fillMaxWidth().padding(0.dp),
+                            .fillMaxWidth()
+                            .padding(0.dp),
                         shape = RoundedCornerShape(8.dp),
                         value = email,
                         onValueChange = { email = it },
@@ -137,9 +139,14 @@ fun LoginEmailScreen(
                             contentColor = Color.White
                         ),
                         modifier = Modifier
-                            .fillMaxWidth().height(50.dp),
+                            .fillMaxWidth()
+                            .height(50.dp),
                         shape = RoundedCornerShape(6.dp),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {
+                            Timber.d("Email view: $email")
+                            onClickContinue(email)
+                        }
+                    ){
                         Text(
                             text = "Continue",
                             fontStyle = MaterialTheme.typography.bodyLarge.fontStyle,
@@ -168,7 +175,8 @@ fun LoginEmailScreen(
                             contentColor = Color.Black
                         ),
                         modifier = Modifier
-                            .fillMaxWidth().height(50.dp),
+                            .fillMaxWidth()
+                            .height(50.dp),
                         shape = RoundedCornerShape(6.dp),
                         onClick = { /*TODO*/ }) {
                         Row(
@@ -204,7 +212,8 @@ fun LoginEmailScreen(
                             contentColor = Color.Black
                         ),
                         modifier = Modifier
-                            .fillMaxWidth().height(50.dp),
+                            .fillMaxWidth()
+                            .height(50.dp),
                         shape = RoundedCornerShape(6.dp),
                         onClick = { /*TODO*/ }) {
                         Row(
@@ -240,7 +249,8 @@ fun LoginEmailScreen(
                             contentColor = Color.Black
                         ),
                         modifier = Modifier
-                            .fillMaxWidth().height(50.dp),
+                            .fillMaxWidth()
+                            .height(50.dp),
                         shape = RoundedCornerShape(6.dp),
                         onClick = { /*TODO*/ }) {
                         Row(
@@ -300,7 +310,9 @@ fun LoginEmailScreen(
 fun LoginScreenPrev() {
     CustomLoginGlassEffectTheme() {
         LoginEmailScreen(
-            onLoginUser = {},
+            onClickContinue = {
+                Timber.d("Email view: $it")
+            },
             onRegisterUser = {}
         )
     }
