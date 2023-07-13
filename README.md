@@ -11,8 +11,9 @@ This app is developed using Jetpack Compose, Clean Architecture, and MVVM design
 
 To run the app, you need the following:
 
-- Android device or emulator running Android OS (version X.X or above)
-- Android Studio (version X.X or above)
+- Android device or emulator running Android OS (version 8.0 or above)
+- Android Studio Flamingo | 2022.2.1 Patch
+- Java version SDK 17
 - Internet connection to communicate with the API
 
 ## Architecture
